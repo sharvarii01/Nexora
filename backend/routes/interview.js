@@ -42,15 +42,16 @@ router.post('/message', protect, async (req, res) => {
       return res.status(404).json({ success: false, message: 'Session not found' });
     }
 
+    // Map existing messages to history before pushing the new user message
+    const history = session.messages.map(m => ({
+      role: m.role === 'model' ? 'model' : 'user',
+      parts: [{ text: m.content }],
+    }));
+
     session.messages.push({ role: 'user', content: message });
 
     const model = getModel();
-    const chat = model.startChat({
-      history: session.messages.map(m => ({
-        role: m.role,
-        parts: [{ text: m.content }],
-      })),
-    });
+    const chat = model.startChat({ history });
 
     const result = await chat.sendMessage(message);
     const aiResponse = result.response.text();
