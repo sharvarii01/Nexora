@@ -1,5 +1,7 @@
 # 🚀 Nexora — AI-Powered Developer Career Copilot
 
+🌐 **Live Demo:** [https://nexora-theta-ten.vercel.app](https://nexora-theta-ten.vercel.app)
+
 Nexora is a state-of-the-art, full-stack career preparation and technical assessment platform. Powered by Google Gemini AI, Nexora acts as a developer's ultimate career copilot—delivering interactive mock interviews, smart resume parsing and auditing, adaptive roadmap generation, coding sandboxes, and application tracking in a single modern interface.
 
 ---
