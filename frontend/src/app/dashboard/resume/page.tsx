@@ -40,7 +40,9 @@ export default function ResumePage() {
       const formData = new FormData();
       formData.append('resume', file);
       if (targetRole) formData.append('targetRole', targetRole);
-      const { data } = await api.post('/resume/analyze', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      const { data } = await api.post('/resume/analyze', formData, {
+        headers: { 'Content-Type': undefined }
+      });
       setAnalysis(data.analysis);
       toast.success('Resume analyzed successfully!');
     } catch (err: unknown) {

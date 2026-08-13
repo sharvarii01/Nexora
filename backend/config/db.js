@@ -10,7 +10,9 @@ const connectDB = async () => {
     // Use in-memory MongoDB if the environment is development and URI is localhost
     if (process.env.NODE_ENV === 'development' && uri.includes('localhost')) {
       console.log('🔄 Starting local In-Memory MongoDB server...');
-      mongod = await MongoMemoryServer.create();
+      mongod = await MongoMemoryServer.create({
+        instance: { launchTimeout: 60000 }
+      });
       uri = mongod.getUri();
       console.log('✅ In-Memory MongoDB started at:', uri);
     }
