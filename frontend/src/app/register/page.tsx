@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { Eye, EyeOff, Zap, ArrowLeft } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
+import { Eye, EyeOff, Zap, ArrowLeft, Sun, Moon } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
@@ -12,6 +13,7 @@ export default function RegisterPage() {
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
 
   const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
@@ -33,7 +35,7 @@ export default function RegisterPage() {
   };
 
   const inputStyle = {
-    background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--text-primary)',
+    background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-primary)',
   };
 
   return (
@@ -42,9 +44,19 @@ export default function RegisterPage() {
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-20" style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)', filter: 'blur(60px)' }} />
       </div>
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-lg relative z-10">
-        <Link href="/" className="flex items-center gap-2 mb-8 text-sm" style={{ color: 'var(--text-muted)' }}>
-          <ArrowLeft className="w-4 h-4" /> Back to home
-        </Link>
+        <div className="flex items-center justify-between mb-8">
+          <Link href="/" className="flex items-center gap-2 text-sm transition-colors hover:text-[var(--text-primary)]" style={{ color: 'var(--text-muted)' }}>
+            <ArrowLeft className="w-4 h-4" /> Back to home
+          </Link>
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+            style={{ color: 'var(--text-muted)' }}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+        </div>
         <div className="glass-card rounded-2xl p-8">
           <div className="flex items-center gap-2 mb-6">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>

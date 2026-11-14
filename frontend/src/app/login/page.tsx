@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { Eye, EyeOff, Zap, ArrowLeft, HelpCircle, X, CheckCircle2 } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
+import { Eye, EyeOff, Zap, ArrowLeft, HelpCircle, X, CheckCircle2, Sun, Moon } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function LoginPage() {
@@ -15,6 +16,7 @@ export default function LoginPage() {
   const [showHelp, setShowHelp] = useState(false);
   const [lastUser, setLastUser] = useState<any>(null);
   const { login } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -54,12 +56,22 @@ export default function LoginPage() {
 
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md relative z-10">
         <div className="flex items-center justify-between mb-6">
-          <Link href="/" className="flex items-center gap-2 text-sm transition-colors hover:text-white" style={{ color: 'var(--text-muted)' }}>
+          <Link href="/" className="flex items-center gap-2 text-sm transition-colors hover:text-[var(--text-primary)]" style={{ color: 'var(--text-muted)' }}>
             <ArrowLeft className="w-4 h-4" /> Back to home
           </Link>
-          <button onClick={() => setShowHelp(true)} className="flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-white" style={{ color: 'var(--text-muted)' }}>
-            <HelpCircle className="w-4 h-4" /> What Nexora does?
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+              style={{ color: 'var(--text-muted)' }}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+            <button onClick={() => setShowHelp(true)} className="flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-[var(--text-primary)]" style={{ color: 'var(--text-muted)' }}>
+              <HelpCircle className="w-4 h-4" /> What Nexora does?
+            </button>
+          </div>
         </div>
 
         <div className="glass-card rounded-2xl p-8">
@@ -102,7 +114,7 @@ export default function LoginPage() {
               <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Email</label>
               <input id="login-email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
                 className="w-full px-4 py-2.5 rounded-lg text-sm outline-none transition-all"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
+                style={{ background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
                 onFocus={e => (e.target.style.borderColor = 'var(--accent-purple)')} onBlur={e => (e.target.style.borderColor = 'var(--border)')} />
             </div>
             <div>
@@ -110,9 +122,9 @@ export default function LoginPage() {
               <div className="relative">
                 <input id="login-password" type={showPw ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••"
                   className="w-full px-4 py-2.5 rounded-lg text-sm outline-none transition-all pr-10"
-                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
+                  style={{ background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
                   onFocus={e => (e.target.style.borderColor = 'var(--accent-purple)')} onBlur={e => (e.target.style.borderColor = 'var(--border)')} />
-                <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors hover:text-white" style={{ color: 'var(--text-muted)' }}>
+                <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors hover:text-[var(--text-primary)]" style={{ color: 'var(--text-muted)' }}>
                   {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>

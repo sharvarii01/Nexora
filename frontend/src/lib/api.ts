@@ -1,7 +1,18 @@
 import axios from 'axios';
 
+// In production on Vercel, vercel.json routes /api/* → backend/server.js
+// so we use a relative URL. In local dev, we hit localhost:5000 directly.
+const getBaseURL = () => {
+  if (typeof window !== 'undefined') {
+    // Browser: use relative URL in production, explicit in dev
+    if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+    if (window.location.hostname !== 'localhost') return '/api';
+  }
+  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+};
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
+  baseURL: getBaseURL(),
   headers: { 'Content-Type': 'application/json' },
 });
 

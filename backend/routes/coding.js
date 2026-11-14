@@ -105,6 +105,12 @@ router.get('/problems/:id', protect, async (req, res) => {
 router.post('/run', protect, async (req, res) => {
   try {
     const { code, language, problemId } = req.body;
+    if (!code || !language || !problemId) {
+      return res.status(400).json({ success: false, message: 'code, language, and problemId are required' });
+    }
+    if (code.length > 10000) {
+      return res.status(400).json({ success: false, message: 'Code too long (max 10,000 characters)' });
+    }
     const langMap = { python: 71, javascript: 63, java: 62, cpp: 54 };
     const langId = langMap[language] || 71;
 
@@ -148,6 +154,12 @@ Return ONLY JSON.`;
 router.post('/submit', protect, async (req, res) => {
   try {
     const { code, language, problemId } = req.body;
+    if (!code || !language || !problemId) {
+      return res.status(400).json({ success: false, message: 'code, language, and problemId are required' });
+    }
+    if (code.length > 10000) {
+      return res.status(400).json({ success: false, message: 'Code too long (max 10,000 characters)' });
+    }
     const model = getModel();
     const problem = PROBLEMS.find(p => p.id === problemId);
 

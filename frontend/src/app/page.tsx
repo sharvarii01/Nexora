@@ -1,7 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Brain, Code2, FileText, Trophy, Target, Zap, ArrowRight, ChevronRight, Star, Users, TrendingUp } from 'lucide-react';
+import { Brain, Code2, FileText, Trophy, Target, Zap, ArrowRight, ChevronRight, Star, Users, TrendingUp, Sun, Moon } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const features = [
   { icon: FileText, title: 'AI Resume Analyzer', desc: 'Get ATS score, skill gap analysis, and actionable improvements powered by Gemini AI.', color: 'from-purple-500 to-violet-600', delay: 0.1 },
@@ -22,6 +23,7 @@ const stats = [
 const companies = ['Google', 'Amazon', 'Microsoft', 'Meta', 'Apple', 'Flipkart', 'Razorpay', 'Infosys', 'TCS', 'Wipro'];
 
 export default function Home() {
+  const { theme, toggleTheme } = useTheme();
   return (
     <div className="min-h-screen relative overflow-hidden" style={{ background: 'var(--bg-primary)' }}>
       {/* Animated background orbs */}
@@ -43,11 +45,18 @@ export default function Home() {
           </div>
         </div>
         <div className="hidden md:flex items-center gap-6 text-sm" style={{ color: 'var(--text-secondary)' }}>
-          <Link href="#features" className="hover:text-white transition-colors">Features</Link>
-          <Link href="#stats" className="hover:text-white transition-colors">Stats</Link>
-          <Link href="#companies" className="hover:text-white transition-colors">Companies</Link>
+          <Link href="#features" className="hover:text-[var(--text-primary)] transition-colors">Features</Link>
+          <Link href="#stats" className="hover:text-[var(--text-primary)] transition-colors">Stats</Link>
+          <Link href="#companies" className="hover:text-[var(--text-primary)] transition-colors">Companies</Link>
         </div>
         <div className="flex items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg transition-colors btn-secondary"
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
           <Link href="/login">
             <button className="btn-secondary text-sm px-4 py-2">Sign In</button>
           </Link>
@@ -149,7 +158,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="relative z-10 border-t py-8 px-6 text-center text-sm" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
-        © 2024 Nexora.
+        © 2026 Nexora.
       </footer>
     </div>
   );

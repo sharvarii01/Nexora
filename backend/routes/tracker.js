@@ -83,7 +83,7 @@ router.get('/activity', protect, async (req, res) => {
       ...interviews.map(i => ({
         id: i._id,
         type: 'interview',
-        title: `Mock Interview: ${i.role}`,
+        title: `Mock Interview: ${i.targetRole}`,
         status: i.status,
         score: i.score,
         date: i.createdAt,

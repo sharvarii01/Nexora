@@ -9,6 +9,9 @@ const router = express.Router();
 router.post('/start', protect, async (req, res) => {
   try {
     const { targetRole, targetCompany, type } = req.body;
+    if (!targetRole) {
+      return res.status(400).json({ success: false, message: 'targetRole is required' });
+    }
     const model = getModel();
 
     const systemPrompt = `You are an experienced interviewer at ${targetCompany || 'a top tech company'} conducting a ${type || 'mixed'} interview for a ${targetRole} position. 
@@ -37,6 +40,12 @@ After the candidate responds, give brief feedback and ask the next question.`;
 router.post('/message', protect, async (req, res) => {
   try {
     const { sessionId, message } = req.body;
+    if (!sessionId || !message) {
+      return res.status(400).json({ success: false, message: 'sessionId and message are required' });
+    }
+    if (message.length > 2000) {
+      return res.status(400).json({ success: false, message: 'Message too long (max 2000 characters)' });
+    }
     const session = await InterviewSession.findById(sessionId);
     if (!session || session.user.toString() !== req.user._id.toString()) {
       return res.status(404).json({ success: false, message: 'Session not found' });
