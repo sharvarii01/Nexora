@@ -5,7 +5,22 @@
       "src": "backend/server.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["backend/**"]
+        "includeFiles": ["backend/**"],
+        "excludeFiles": [
+          "backend/node_modules/@types/**",
+          "backend/node_modules/typescript/**",
+          "backend/node_modules/pdf-parse/test/**",
+          "backend/node_modules/mongodb-memory-server/**",
+          "backend/node_modules/mongodb-memory-server-core/**",
+          "backend/node_modules/@mongodb-js/**",
+          "backend/node_modules/jest/**",
+          "backend/node_modules/jest-*/**",
+          "backend/node_modules/@jest/**",
+          "backend/node_modules/mocha/**",
+          "backend/node_modules/.cache/**",
+          "backend/test-gemini.js",
+          "backend/run-tests.js"
+        ]
       }
     },
     {
