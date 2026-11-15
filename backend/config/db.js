@@ -12,9 +12,11 @@ const connectDB = async () => {
     }
 
     // Use in-memory MongoDB only in development with a localhost URI
-    if (process.env.NODE_ENV !== 'production' && uri.includes('localhost')) {
+    if (process.env.NODE_ENV !== 'production' && uri && uri.includes('localhost')) {
       try {
-        const mms = require('mongodb-memory-server');
+        // Dynamic require prevents Vercel from bundling heavy mongodb binaries into serverless functions
+        const pkg = 'mongodb-memory-server';
+        const mms = require(pkg);
         MongoMemoryServer = mms.MongoMemoryServer;
         console.log('🔄 Starting local In-Memory MongoDB server...');
         mongod = await MongoMemoryServer.create({
