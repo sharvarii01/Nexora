@@ -63,21 +63,21 @@ export default function RoadmapPage() {
             <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Target Role *</label>
             <input value={targetRole} onChange={e => setTargetRole(e.target.value)} placeholder="Software Engineer"
               className="w-full px-3 py-2 rounded-lg text-sm outline-none"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
+              style={{ background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
               onFocus={e => (e.target.style.borderColor = '#7c3aed')} onBlur={e => (e.target.style.borderColor = 'var(--border)')} />
           </div>
           <div>
             <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Target Company</label>
             <input value={targetCompany} onChange={e => setTargetCompany(e.target.value)} placeholder="Google, Amazon..."
               className="w-full px-3 py-2 rounded-lg text-sm outline-none"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
+              style={{ background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
               onFocus={e => (e.target.style.borderColor = '#7c3aed')} onBlur={e => (e.target.style.borderColor = 'var(--border)')} />
           </div>
           <div>
             <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Timeline (weeks)</label>
             <select value={weeks} onChange={e => setWeeks(Number(e.target.value))}
               className="w-full px-3 py-2 rounded-lg text-sm outline-none"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}>
+              style={{ background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}>
               {[4, 8, 12, 16, 24].map(w => <option key={w} value={w}>{w} weeks</option>)}
             </select>
           </div>

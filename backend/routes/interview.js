@@ -12,6 +12,13 @@ router.post('/start', protect, async (req, res) => {
     if (!targetRole) {
       return res.status(400).json({ success: false, message: 'targetRole is required' });
     }
+
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your_gemini_api_key_here') {
+      return res.status(400).json({
+        success: false,
+        message: 'Gemini API key is not configured in Vercel / environment. Please add GEMINI_API_KEY in Vercel settings.'
+      });
+    }
     const model = getModel();
 
     const systemPrompt = `You are an experienced interviewer at ${targetCompany || 'a top tech company'} conducting a ${type || 'mixed'} interview for a ${targetRole} position. 

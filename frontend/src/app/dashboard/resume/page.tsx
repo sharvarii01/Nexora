@@ -69,7 +69,7 @@ export default function ResumePage() {
             <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Target Role (optional)</label>
             <input value={targetRole} onChange={e => setTargetRole(e.target.value)} placeholder="e.g. Software Engineer, Data Scientist"
               className="w-full px-4 py-2.5 rounded-lg text-sm outline-none"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
+              style={{ background: 'var(--bg-input)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
               onFocus={e => (e.target.style.borderColor = '#7c3aed')} onBlur={e => (e.target.style.borderColor = 'var(--border)')} />
           </div>
         </div>

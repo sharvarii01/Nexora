@@ -11,6 +11,13 @@ router.post('/generate', protect, async (req, res) => {
     const user = req.user;
     const { targetRole, targetCompany, timelineWeeks } = req.body;
 
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your_gemini_api_key_here') {
+      return res.status(400).json({
+        success: false,
+        message: 'Gemini API key is not configured in Vercel / environment. Please add GEMINI_API_KEY in Vercel settings.'
+      });
+    }
+
     const model = getModel();
     const prompt = `Create a detailed personalized placement preparation roadmap for a student.
 

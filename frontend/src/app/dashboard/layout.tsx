@@ -176,7 +176,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen transition-colors duration-300" style={{ background: 'var(--bg-primary)' }}>
       <DashboardNav />
       <main className="md:ml-60 pt-14 md:pt-0 min-h-screen">
-        <div className="p-6 max-w-6xl mx-auto">
+        <div className="px-6 py-6 max-w-7xl w-full mx-auto">
           {children}
         </div>
       </main>

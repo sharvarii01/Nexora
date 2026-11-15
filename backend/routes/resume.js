@@ -13,6 +13,13 @@ router.post('/analyze', protect, upload.single('resume'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ success: false, message: 'No resume file uploaded' });
 
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your_gemini_api_key_here') {
+      return res.status(400).json({
+        success: false,
+        message: 'Gemini API key is not configured in Vercel / environment. Please add GEMINI_API_KEY in Vercel settings.'
+      });
+    }
+
     const pdfData = await pdfParse(req.file.buffer);
     const resumeText = pdfData.text;
     const targetRole = req.body.targetRole || req.user.targetRole || 'Software Engineer';
